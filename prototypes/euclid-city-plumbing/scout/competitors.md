@@ -1,0 +1,20 @@
+# Competitor Analysis — Euclid City Plumbing Service
+
+| Competitor | Website | Hero Headline | Trust Signals | Strengths | Gaps |
+|------------|---------|---------------|---------------|-----------|------|
+| Bellman Plumbing | [bellmanplumbing.com](https://bellmanplumbing.com) | "Northeast Ohio Plumbing Contractor — Quality Service We'll Put Our Name On It!" | 70 years in business (est. 1955), three generations of family ownership, BBB A+, Angi 5.0 rating, plumbers average 25 years experience, licensed and insured | Deep generational credibility; named contact routing (Mike, Dustin, Bob); comprehensive service menu including commercial work and ADA solutions; dedicated location pages for Cleveland, Elyria, Lorain, Westlake | No customer testimonial quotes anywhere on site; no review count displayed; no emergency service hours; no response time guarantee; no project photos or before/after imagery |
+| Approved Plumbing Co | [approvedplumbing.com](https://www.approvedplumbing.com) | "Providing You With Award Winning Plumbing Sales & Service In Northeast Ohio" | 85 years in business (est. 1940), BBB A+, Ohio PHCC Contractor of the Year 2007, 14-time award winner, QSC member, OH LIC #PL48951, service vehicles stocked with 900+ parts | Industry awards give strong differentiation; broad service range including bathroom remodeling, backflow prevention, and commercial specialties; has a blog section | No customer reviews or star ratings displayed; no pricing or service call fees; no response time or emergency availability info; no project gallery; no testimonials |
+| Critical Plumbing | [criticalplumbingohio.com](https://criticalplumbingohio.com) | "Plumbing problems in Cleveland? Call the PROS who get it done!" | 5.0/5 stars with 75+ Google reviews, bonded sewer contractor, fully insured, 24/7 emergency availability, Wisetack financing (0% APR up to 120 months) | Strongest online review presence of the three; 24/7 emergency service is a clear competitive edge; financing option lowers barrier to large jobs; creative service naming adds personality | Only 7 years old (est. 2019) — no legacy credibility; testimonials section exists but appears empty; no staff credentials or certifications beyond bonding; no before/after gallery; no FAQ |
+
+## Notes
+
+### What Euclid City Plumbing's prototype must match
+- **Generational story front-and-center.** Both Bellman and Approved Plumbing lean heavily on family legacy and years in business. Euclid City Plumbing has 115 years — more than either competitor — and should lead with that number prominently in the hero, above the fold.
+- **Named ownership.** Bellman lists individual family members by name for different service types. Euclid City should name Lou and Hugh Larick visibly on the About page to humanize the brand.
+- **Services page depth.** All three competitors have dedicated service sub-pages. The prototype should have at minimum one services section with individual anchor links or sub-pages for each major service category.
+
+### Where the prototype can beat all three competitors
+- **Actual testimonial quotes.** None of the three competitors display real customer review quotes with names. Euclid City has documented 5-star reviews on Birdeye and Yelp. Displaying even three verbatim quotes with reviewer first names gives an immediate trust edge.
+- **Review count and star rating badge.** Critical Plumbing has 75+ Google reviews but does not feature this on the site. Euclid City should display its aggregate rating prominently once the Google Business Profile is claimed and verified.
+- **Same-day service promise.** Customers explicitly mention same-day availability in reviews. None of the competitors make this a hero-level promise. A simple "Same-Day Service Available — Call by 2 PM" badge in the header would be a strong differentiator.
+- **Age as authority.** At 115 years, Euclid City Plumbing predates every plumbing company in Northeast Ohio that has a working website. The headline should not bury this — 1911 should appear in the H1.
