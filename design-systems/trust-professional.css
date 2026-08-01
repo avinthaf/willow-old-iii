@@ -1,0 +1,59 @@
+/* =============================================================================
+   Trust Professional — Design System Preset
+   Trades: Law Firms · Medical Practices · Accountants · Chiropractors · Insurance
+   Character: Open, spacious, understated authority. The site feels like advice.
+
+   Google Fonts (add to layout.tsx):
+   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap');
+   ============================================================================= */
+
+:root {
+  /* Brand tokens */
+  --ds-primary:          #1A2640;
+  --ds-primary-fg:       #FFFFFF;
+  --ds-secondary:        #9A7828;
+  --ds-secondary-fg:     #FFFFFF;
+  --ds-accent:           #3B6E8F;
+  --ds-accent-fg:        #FFFFFF;
+  --ds-bg:               #F6F7F9;
+  --ds-surface:          #FFFFFF;
+  --ds-text:             #1A1A28;
+  --ds-text-muted:       #6B7280;
+  --ds-border:           #E2E4E8;
+
+  /* Typography */
+  --ds-font-heading:     'Cormorant Garamond', 'Garamond', Georgia, serif;
+  --ds-font-body:        'Source Sans 3', 'Helvetica Neue', system-ui, sans-serif;
+  --ds-fw-heading:       400;
+  --ds-ls-heading:       0.02em;
+  --ds-ls-label:         0.12em;
+  --ds-tt-label:         uppercase;
+
+  /* Shape */
+  --ds-radius:           4px;
+  --ds-radius-lg:        6px;
+  --ds-shadow-sm:        0 1px 4px rgba(26,38,64,0.06);
+  --ds-shadow-md:        0 4px 16px rgba(26,38,64,0.08);
+
+  /* shadcn/ui (HSL) */
+  --background:          220 14% 96%;
+  --foreground:          226 25% 14%;
+  --card:                0 0% 100%;
+  --card-foreground:     226 25% 14%;
+  --popover:             0 0% 100%;
+  --popover-foreground:  226 25% 14%;
+  --primary:             222 43% 18%;
+  --primary-foreground:  0 0% 100%;
+  --secondary:           41 58% 38%;
+  --secondary-foreground: 0 0% 100%;
+  --muted:               220 10% 90%;
+  --muted-foreground:    220 9% 46%;
+  --accent:              206 42% 40%;
+  --accent-foreground:   0 0% 100%;
+  --destructive:         0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border:              220 13% 88%;
+  --input:               220 13% 88%;
+  --ring:                222 43% 18%;
+  --radius:              0.25rem;
+}

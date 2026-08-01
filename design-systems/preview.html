@@ -1,0 +1,1223 @@
+<!doctype html>
+<title>Willow — Design System Previews</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Shell (deliberately dark — design tool aesthetic) ─── */
+:root {
+  --sh-bg:      #0F0E0B;
+  --sh-panel:   #161410;
+  --sh-border:  #252219;
+  --sh-chrome:  #1B1915;
+  --sh-text:    #EDE8DF;
+  --sh-muted:   #6A6258;
+  --sh-hover:   rgba(237,232,223,0.05);
+  --sh-active:  rgba(237,232,223,0.09);
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--sh-bg);
+  color: var(--sh-text);
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Sidebar ───────────────────────────────────────────── */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--sh-panel);
+  border-right: 1px solid var(--sh-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-head {
+  padding: 18px 14px 14px;
+  border-bottom: 1px solid var(--sh-border);
+  flex-shrink: 0;
+}
+
+.s-eyebrow {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sh-muted);
+}
+
+.s-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sh-text);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+.sys-list {
+  padding: 6px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sys-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.1s;
+  margin-bottom: 2px;
+  user-select: none;
+}
+
+.sys-item:hover { background: var(--sh-hover); }
+.sys-item.active { background: var(--sh-active); }
+
+.sys-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.sys-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.sys-info { min-width: 0; }
+
+.sys-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sh-text);
+  line-height: 1.2;
+}
+
+.sys-meta {
+  font-size: 10.5px;
+  color: var(--sh-muted);
+  line-height: 1.4;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Stage ─────────────────────────────────────────────── */
+.stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Browser frame ─────────────────────────────────────── */
+.browser {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--sh-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.browser-bar {
+  background: var(--sh-chrome);
+  border-bottom: 1px solid var(--sh-border);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.b-dots { display: flex; gap: 5px; }
+.b-dot { width: 10px; height: 10px; border-radius: 50%; }
+.b-dot.r { background: #FF5F57; }
+.b-dot.y { background: #FEBC2E; }
+.b-dot.g { background: #28C840; }
+
+.b-url {
+  flex: 1;
+  max-width: 300px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: var(--sh-muted);
+  font-family: ui-monospace, 'SF Mono', monospace;
+}
+
+.b-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sh-muted);
+}
+
+.mockup-viewport {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.mockup { display: none; }
+.mockup.active { display: block; }
+
+/* ── Token strip ───────────────────────────────────────── */
+.tokens {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--sh-panel);
+  border: 1px solid var(--sh-border);
+  border-radius: 8px;
+  padding: 9px 14px;
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.tok-group { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+.tok-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sh-muted);
+}
+
+.tok-swatches { display: flex; gap: 3px; }
+
+.tok-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.07);
+  cursor: help;
+  position: relative;
+}
+
+.tok-text { font-size: 11.5px; color: var(--sh-text); }
+
+.tok-div {
+  width: 1px;
+  height: 16px;
+  background: var(--sh-border);
+  flex-shrink: 0;
+}
+
+.tok-tags { display: flex; gap: 4px; flex-wrap: nowrap; }
+
+.tok-tag {
+  font-size: 10px;
+  padding: 2px 7px;
+  background: rgba(237,232,223,0.06);
+  border-radius: 99px;
+  color: var(--sh-muted);
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THEME 1 — BLUE COLLAR
+   Johnson Plumbing & Heating · Parma, OH
+   ═══════════════════════════════════════════════════════════ */
+.bc { font-family: system-ui, -apple-system, sans-serif; }
+
+.bc .mn {
+  background: #1B3A6B;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 11px 22px;
+}
+.bc .mn-logo {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14px; font-weight: 700;
+  color: #FFF; letter-spacing: 0.03em; text-transform: uppercase;
+}
+.bc .mn-right { display: flex; align-items: center; gap: 14px; }
+.bc .mn-phone { font-size: 12px; color: rgba(255,255,255,0.6); }
+.bc .mn-cta {
+  background: #C82A1C; color: #FFF;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 2px; border: none; cursor: pointer;
+}
+
+.bc .hero {
+  background: #122847;
+  padding: 44px 22px 38px;
+}
+.bc .hero-ey {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #E8A020; font-weight: 700; margin-bottom: 10px;
+}
+.bc .hero-h {
+  font-family: Georgia, serif;
+  font-size: 28px; font-weight: 700; color: #FFF;
+  line-height: 1.2; max-width: 500px; text-wrap: balance;
+  letter-spacing: -0.01em; margin-bottom: 12px;
+}
+.bc .hero-sub {
+  font-size: 13px; color: rgba(255,255,255,0.58);
+  line-height: 1.65; max-width: 420px; margin-bottom: 22px;
+}
+.bc .hero-btns { display: flex; gap: 9px; margin-bottom: 30px; }
+.bc .btn-p {
+  background: #C82A1C; color: #FFF;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 10px 20px; border-radius: 2px; border: none; cursor: pointer;
+}
+.bc .btn-s {
+  background: transparent; color: #FFF;
+  font-size: 11px; font-weight: 600;
+  padding: 10px 20px; border-radius: 2px; border: 1px solid rgba(255,255,255,0.28); cursor: pointer;
+}
+.bc .stats {
+  display: flex; gap: 28px;
+  border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;
+}
+.bc .stat-n {
+  font-family: Georgia, serif; font-size: 22px; font-weight: 700;
+  color: #E8A020; line-height: 1;
+}
+.bc .stat-l {
+  font-size: 10px; color: rgba(255,255,255,0.42);
+  text-transform: uppercase; letter-spacing: 0.07em; margin-top: 3px;
+}
+
+.bc .svcs {
+  background: #F4F4EF; padding: 28px 22px;
+}
+.bc .sec-ey {
+  font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #C82A1C; font-weight: 700; margin-bottom: 5px;
+}
+.bc .sec-h {
+  font-family: Georgia, serif; font-size: 19px; font-weight: 700;
+  color: #111; margin-bottom: 18px;
+}
+.bc .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.bc .card {
+  background: #FFF; border-radius: 2px; padding: 14px 16px;
+  border-left: 3px solid #1B3A6B;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+}
+.bc .card-h {
+  font-family: Georgia, serif; font-size: 13px; font-weight: 700;
+  color: #1B3A6B; margin-bottom: 5px;
+}
+.bc .card-p { font-size: 11.5px; color: #555; line-height: 1.5; }
+
+.bc .testi {
+  background: #FFF; padding: 22px 22px;
+  border-left: 4px solid #C82A1C;
+}
+.bc .quote {
+  font-family: Georgia, serif; font-size: 14px; font-style: italic;
+  color: #222; line-height: 1.65; margin-bottom: 9px;
+}
+.bc .attr {
+  font-size: 10px; color: #888; text-transform: uppercase;
+  letter-spacing: 0.08em; font-weight: 700;
+}
+
+.bc .foot {
+  background: #1B3A6B; padding: 12px 22px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.bc .foot-l { font-size: 10px; color: rgba(255,255,255,0.32); }
+.bc .foot-r { font-size: 10px; color: rgba(255,255,255,0.22); font-family: monospace; }
+
+/* ═══════════════════════════════════════════════════════════
+   THEME 2 — WARM FAMILY
+   Rosa's Hair Studio · Lakewood, OH
+   ═══════════════════════════════════════════════════════════ */
+.wf { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+.wf .mn {
+  background: #FDF8F2; display: flex; align-items: center;
+  justify-content: space-between; padding: 13px 26px;
+  border-bottom: 1px solid #EDE3D5;
+}
+.wf .mn-logo {
+  font-family: Palatino, 'Palatino Linotype', Georgia, serif;
+  font-size: 17px; font-weight: 400; font-style: italic;
+  color: #5C2E3A;
+}
+.wf .mn-right { display: flex; align-items: center; gap: 14px; }
+.wf .mn-phone { font-size: 12px; color: #9A7A6A; }
+.wf .mn-cta {
+  background: #5C2E3A; color: #FDF8F2;
+  font-size: 12px; padding: 7px 16px;
+  border-radius: 99px; border: none; cursor: pointer;
+}
+
+.wf .hero {
+  background: #FDF8F2; padding: 46px 26px 40px;
+  text-align: center;
+}
+.wf .hero-ey {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #8B9E80; margin-bottom: 14px;
+}
+.wf .hero-h {
+  font-family: Palatino, 'Palatino Linotype', Georgia, serif;
+  font-size: 32px; font-weight: 400; font-style: italic;
+  color: #2A1A14; line-height: 1.25;
+  max-width: 480px; margin: 0 auto 14px; text-wrap: balance;
+}
+.wf .hero-sub {
+  font-size: 13px; color: #7A6055; line-height: 1.7;
+  max-width: 380px; margin: 0 auto 26px;
+}
+.wf .hero-btns { display: flex; gap: 10px; justify-content: center; margin-bottom: 32px; }
+.wf .btn-p {
+  background: #5C2E3A; color: #FDF8F2;
+  font-size: 12px; padding: 10px 22px; border-radius: 99px; border: none; cursor: pointer;
+}
+.wf .btn-s {
+  background: transparent; color: #5C2E3A;
+  font-size: 12px; padding: 10px 22px; border-radius: 99px;
+  border: 1px solid #C4956A; cursor: pointer;
+}
+.wf .stats {
+  display: flex; gap: 28px; justify-content: center;
+  border-top: 1px solid #EDE3D5; padding-top: 22px;
+}
+.wf .stat-n {
+  font-family: Palatino, Georgia, serif; font-size: 22px; font-style: italic;
+  color: #5C2E3A; line-height: 1; text-align: center;
+}
+.wf .stat-l {
+  font-size: 10px; color: #9A7A6A; margin-top: 3px; text-align: center;
+}
+
+.wf .svcs { background: #FFFFFF; padding: 32px 26px; }
+.wf .sec-ey {
+  text-align: center; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #8B9E80; margin-bottom: 7px;
+}
+.wf .sec-h {
+  text-align: center; font-family: Palatino, Georgia, serif;
+  font-size: 22px; font-weight: 400; font-style: italic;
+  color: #2A1A14; margin-bottom: 22px;
+}
+.wf .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.wf .card {
+  background: #FDF8F2; border-radius: 20px; padding: 20px 16px; text-align: center;
+}
+.wf .card-ico {
+  width: 36px; height: 36px; background: #EDE3D5;
+  border-radius: 50%; margin: 0 auto 11px;
+}
+.wf .card-h {
+  font-family: Palatino, Georgia, serif; font-size: 14px; font-style: italic;
+  color: #5C2E3A; margin-bottom: 5px;
+}
+.wf .card-p { font-size: 11.5px; color: #7A6055; line-height: 1.55; }
+
+.wf .testi {
+  background: #FDF8F2; padding: 28px 26px; text-align: center;
+  border-top: 1px solid #EDE3D5;
+}
+.wf .quote {
+  font-family: Palatino, Georgia, serif; font-size: 15px; font-style: italic;
+  color: #2A1A14; line-height: 1.65; max-width: 440px; margin: 0 auto 12px;
+}
+.wf .attr { font-size: 11px; color: #9A7A6A; }
+
+.wf .foot {
+  background: #5C2E3A; padding: 13px 26px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.wf .foot-l { font-size: 10px; color: rgba(253,248,242,0.38); }
+.wf .foot-r { font-size: 10px; color: rgba(253,248,242,0.22); }
+
+/* ═══════════════════════════════════════════════════════════
+   THEME 3 — TRUST PROFESSIONAL
+   Meridian Legal Group · Beachwood, OH
+   ═══════════════════════════════════════════════════════════ */
+.tp { font-family: system-ui, -apple-system, sans-serif; }
+
+.tp .mn {
+  background: #FFF; display: flex; align-items: center;
+  justify-content: space-between; padding: 14px 30px;
+  border-bottom: 1px solid #E2E4E8;
+}
+.tp .mn-logo {
+  font-family: 'Garamond', 'Cormorant Garamond', Georgia, serif;
+  font-size: 15px; color: #1A2640; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.tp .mn-right { display: flex; align-items: center; gap: 18px; }
+.tp .mn-phone { font-size: 12px; color: #6B7280; }
+.tp .mn-cta {
+  background: transparent; color: #1A2640;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+  padding: 7px 16px; border-radius: 4px; border: 1px solid #1A2640; cursor: pointer;
+}
+
+.tp .hero {
+  background: #F6F7F9; padding: 48px 30px;
+  display: grid; grid-template-columns: 1fr 190px; gap: 32px; align-items: center;
+}
+.tp .hero-ey {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #9A7828; font-weight: 600; margin-bottom: 13px;
+}
+.tp .hero-h {
+  font-family: 'Garamond', 'Cormorant Garamond', Georgia, serif;
+  font-size: 30px; font-weight: 400; color: #1A2640;
+  line-height: 1.3; text-wrap: balance; letter-spacing: 0.01em; margin-bottom: 14px;
+}
+.tp .hero-sub {
+  font-size: 13px; color: #6B7280; line-height: 1.7; margin-bottom: 26px;
+}
+.tp .hero-btns { display: flex; gap: 10px; }
+.tp .btn-p {
+  background: #1A2640; color: #FFF;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+  padding: 10px 20px; border-radius: 4px; border: none; cursor: pointer;
+}
+.tp .btn-s {
+  background: transparent; color: #6B7280;
+  font-size: 11px; padding: 10px 20px; border-radius: 4px;
+  border: 1px solid #D1D5DB; cursor: pointer;
+}
+.tp .aside {
+  background: #FFF; border: 1px solid #E2E4E8; border-radius: 6px; padding: 18px;
+}
+.tp .aside-t {
+  font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.12em;
+  color: #9A7828; font-weight: 700; margin-bottom: 12px;
+}
+.tp .aside-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid #F3F4F6;
+  font-size: 11px; color: #374151;
+}
+.tp .aside-row:last-child { border-bottom: none; }
+.tp .aside-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #9A7828; flex-shrink: 0;
+}
+
+.tp .svcs { background: #FFF; padding: 36px 30px; }
+.tp .sec-ey {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #9A7828; font-weight: 600; margin-bottom: 5px;
+}
+.tp .sec-h {
+  font-family: 'Garamond', Georgia, serif;
+  font-size: 21px; color: #1A2640; margin-bottom: 22px;
+}
+.tp .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.tp .card {
+  background: #F6F7F9; border-radius: 4px; padding: 18px;
+  border-top: 2px solid #9A7828;
+}
+.tp .card-h {
+  font-family: 'Garamond', Georgia, serif; font-size: 15px;
+  color: #1A2640; margin-bottom: 7px;
+}
+.tp .card-p { font-size: 11.5px; color: #6B7280; line-height: 1.6; }
+
+.tp .testi {
+  background: #F6F7F9; padding: 32px 30px;
+  display: flex; gap: 20px; align-items: flex-start;
+  border-top: 1px solid #E2E4E8;
+}
+.tp .quote-mark {
+  font-family: Georgia, serif; font-size: 56px; color: #9A7828;
+  line-height: 0.75; flex-shrink: 0; margin-top: 6px;
+}
+.tp .quote {
+  font-family: 'Garamond', Georgia, serif; font-size: 15px; font-style: italic;
+  color: #374151; line-height: 1.7; margin-bottom: 9px;
+}
+.tp .attr { font-size: 11px; color: #9A7828; font-weight: 600; }
+
+.tp .foot {
+  background: #1A2640; padding: 12px 30px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.tp .foot-l { font-size: 10px; color: rgba(255,255,255,0.28); }
+.tp .foot-r { font-size: 10px; color: rgba(255,255,255,0.18); font-family: monospace; }
+
+/* ═══════════════════════════════════════════════════════════
+   THEME 4 — FRESH OUTDOOR
+   Greenwave Landscaping · Strongsville, OH
+   ═══════════════════════════════════════════════════════════ */
+.fo { font-family: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif; }
+
+.fo .mn {
+  background: #2A5E45; display: flex; align-items: center;
+  justify-content: space-between; padding: 12px 22px;
+}
+.fo .mn-logo { font-size: 15px; font-weight: 700; color: #FFF; }
+.fo .mn-right { display: flex; align-items: center; gap: 12px; }
+.fo .mn-phone { font-size: 12px; color: rgba(255,255,255,0.65); }
+.fo .mn-cta {
+  background: #F06B1C; color: #FFF;
+  font-size: 11px; font-weight: 700; padding: 7px 14px;
+  border-radius: 10px; border: none; cursor: pointer;
+}
+
+.fo .hero {
+  background: #EEF7F2; padding: 40px 22px;
+  display: grid; grid-template-columns: 1fr 160px; gap: 24px; align-items: center;
+}
+.fo .hero-ey {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #2A5E45; font-weight: 700; margin-bottom: 10px;
+}
+.fo .hero-h {
+  font-size: 26px; font-weight: 800; color: #1A2C22;
+  line-height: 1.2; text-wrap: balance; margin-bottom: 12px;
+}
+.fo .hero-sub {
+  font-size: 13px; color: #4A6355; line-height: 1.6; margin-bottom: 20px;
+}
+.fo .hero-btns { display: flex; gap: 8px; margin-bottom: 26px; }
+.fo .btn-p {
+  background: #F06B1C; color: #FFF;
+  font-size: 11px; font-weight: 700; padding: 9px 18px;
+  border-radius: 10px; border: none; cursor: pointer;
+}
+.fo .btn-s {
+  background: transparent; color: #2A5E45;
+  font-size: 11px; font-weight: 700; padding: 9px 18px;
+  border-radius: 10px; border: 2px solid #2A5E45; cursor: pointer;
+}
+.fo .stats { display: flex; gap: 22px; }
+.fo .stat-n { font-size: 20px; font-weight: 800; color: #2A5E45; line-height: 1; }
+.fo .stat-l { font-size: 10px; color: #6A8A78; margin-top: 2px; }
+.fo .hero-badge {
+  background: #2A5E45; border-radius: 16px; padding: 18px 14px; text-align: center;
+}
+.fo .badge-n { font-size: 26px; font-weight: 800; color: #F06B1C; line-height: 1; }
+.fo .badge-t { font-size: 10px; color: rgba(255,255,255,0.65); margin-top: 5px; line-height: 1.4; }
+
+.fo .svcs { background: #FFF; padding: 28px 22px; }
+.fo .sec-ey {
+  font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase;
+  color: #F06B1C; font-weight: 700; margin-bottom: 5px;
+}
+.fo .sec-h { font-size: 20px; font-weight: 800; color: #1A2C22; margin-bottom: 18px; }
+.fo .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.fo .card { background: #EEF7F2; border-radius: 12px; padding: 16px 14px; }
+.fo .card-dot {
+  width: 28px; height: 28px; background: #2A5E45;
+  border-radius: 7px; margin-bottom: 10px;
+}
+.fo .card-h { font-size: 13px; font-weight: 700; color: #1A2C22; margin-bottom: 5px; }
+.fo .card-p { font-size: 11.5px; color: #4A6355; line-height: 1.5; }
+
+.fo .testi { background: #EEF7F2; padding: 24px 22px; }
+.fo .quote { font-size: 14px; color: #1A2C22; line-height: 1.65; margin-bottom: 10px; font-style: italic; }
+.fo .attr { font-size: 11px; color: #2A5E45; font-weight: 700; }
+
+.fo .foot {
+  background: #1A2C22; padding: 12px 22px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.fo .foot-l { font-size: 10px; color: rgba(255,255,255,0.28); }
+.fo .foot-r { font-size: 10px; color: rgba(255,255,255,0.18); }
+
+/* ═══════════════════════════════════════════════════════════
+   THEME 5 — INDUSTRIAL
+   Apex Auto & Tire · Parma, OH
+   ═══════════════════════════════════════════════════════════ */
+.ia { font-family: system-ui, -apple-system, sans-serif; }
+
+.ia .mn {
+  background: #1A1A1A; display: flex; align-items: center;
+  justify-content: space-between; padding: 12px 22px;
+  border-bottom: 3px solid #E05A00;
+}
+.ia .mn-logo {
+  font-family: Impact, 'Haettenschweiler', 'Arial Narrow', Arial, sans-serif;
+  font-size: 17px; color: #FFF; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.ia .mn-right { display: flex; align-items: center; gap: 14px; }
+.ia .mn-phone { font-size: 12px; color: #8A8A8A; }
+.ia .mn-cta {
+  background: #E05A00; color: #FFF;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 0; border: none; cursor: pointer;
+}
+
+.ia .hero { background: #1A1A1A; padding: 44px 22px 40px; }
+.ia .hero-ey {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #E05A00; font-weight: 700; margin-bottom: 10px;
+}
+.ia .hero-h {
+  font-family: Impact, 'Arial Narrow', Arial, sans-serif;
+  font-size: 46px; color: #FFF; line-height: 1;
+  text-transform: uppercase; letter-spacing: 0.02em; max-width: 540px; margin-bottom: 14px;
+}
+.ia .hero-sub {
+  font-size: 13px; color: #8A8A8A; line-height: 1.6; max-width: 400px; margin-bottom: 22px;
+}
+.ia .hero-btns { display: flex; margin-bottom: 32px; }
+.ia .btn-p {
+  background: #E05A00; color: #FFF;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 12px 22px; border-radius: 0; border: none; cursor: pointer;
+}
+.ia .btn-s {
+  background: transparent; color: #8A8A8A;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 12px 22px; border-radius: 0; border: 1px solid #333; cursor: pointer;
+}
+.ia .stats {
+  display: flex; gap: 0;
+  border-top: 1px solid #2A2A2A; padding-top: 18px;
+}
+.ia .stat {
+  padding-right: 24px; margin-right: 24px;
+  border-right: 1px solid #2A2A2A;
+}
+.ia .stat:last-child { border-right: none; }
+.ia .stat-n {
+  font-family: Impact, Arial, sans-serif; font-size: 24px;
+  color: #E05A00; line-height: 1; letter-spacing: 0.02em;
+}
+.ia .stat-l {
+  font-size: 9.5px; color: #4A4A4A; text-transform: uppercase;
+  letter-spacing: 0.12em; margin-top: 3px; font-weight: 700;
+}
+
+.ia .svcs { background: #EBEBEB; padding: 28px 22px; }
+.ia .sec-ey {
+  font-size: 9.5px; letter-spacing: 0.17em; text-transform: uppercase;
+  color: #E05A00; font-weight: 700; margin-bottom: 4px;
+}
+.ia .sec-h {
+  font-family: Impact, Arial, sans-serif; font-size: 22px;
+  color: #1A1A1A; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 16px;
+}
+.ia .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+.ia .card {
+  background: #FFF; border-radius: 0; padding: 14px 16px;
+  border-top: 3px solid #1A1A1A;
+}
+.ia .card-h {
+  font-family: Impact, Arial, sans-serif; font-size: 14px;
+  color: #1A1A1A; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 7px;
+}
+.ia .card-p { font-size: 11.5px; color: #555; line-height: 1.5; }
+
+.ia .testi {
+  background: #111; padding: 24px 22px;
+  border-left: 4px solid #E05A00;
+}
+.ia .quote { font-size: 13.5px; color: #C0C0C0; line-height: 1.65; margin-bottom: 9px; }
+.ia .attr {
+  font-size: 10px; color: #E05A00; text-transform: uppercase;
+  letter-spacing: 0.12em; font-weight: 700;
+}
+
+.ia .foot {
+  background: #111; padding: 12px 22px; border-top: 1px solid #222;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.ia .foot-l { font-size: 10px; color: #2E2E2E; }
+.ia .foot-r { font-size: 10px; color: #252525; font-family: monospace; }
+</style>
+
+<body>
+<aside class="sidebar">
+  <div class="sidebar-head">
+    <div class="s-eyebrow">Willow</div>
+    <div class="s-title">Design Systems</div>
+  </div>
+  <div class="sys-list">
+
+    <div class="sys-item active" data-id="bc" data-url="johnsonplumbing.com" data-label="Blue Collar">
+      <div class="sys-palette">
+        <div class="sys-dot" style="background:#1B3A6B"></div>
+        <div class="sys-dot" style="background:#C82A1C"></div>
+        <div class="sys-dot" style="background:#E8A020"></div>
+      </div>
+      <div class="sys-info">
+        <div class="sys-name">Blue Collar</div>
+        <div class="sys-meta">Plumbing · HVAC · Electrical · Roofing</div>
+      </div>
+    </div>
+
+    <div class="sys-item" data-id="wf" data-url="rosahairstudio.com" data-label="Warm Family">
+      <div class="sys-palette">
+        <div class="sys-dot" style="background:#5C2E3A"></div>
+        <div class="sys-dot" style="background:#C4956A"></div>
+        <div class="sys-dot" style="background:#8B9E80"></div>
+      </div>
+      <div class="sys-info">
+        <div class="sys-name">Warm Family</div>
+        <div class="sys-meta">Salons · Restaurants · Florists</div>
+      </div>
+    </div>
+
+    <div class="sys-item" data-id="tp" data-url="meridianlegalgroup.com" data-label="Trust Professional">
+      <div class="sys-palette">
+        <div class="sys-dot" style="background:#1A2640"></div>
+        <div class="sys-dot" style="background:#9A7828"></div>
+        <div class="sys-dot" style="background:#3B6E8F"></div>
+      </div>
+      <div class="sys-info">
+        <div class="sys-name">Trust Professional</div>
+        <div class="sys-meta">Law · Medical · Accounting · Chiro</div>
+      </div>
+    </div>
+
+    <div class="sys-item" data-id="fo" data-url="greenwavelandscaping.com" data-label="Fresh Outdoor">
+      <div class="sys-palette">
+        <div class="sys-dot" style="background:#2A5E45"></div>
+        <div class="sys-dot" style="background:#4CAF7D"></div>
+        <div class="sys-dot" style="background:#F06B1C"></div>
+      </div>
+      <div class="sys-info">
+        <div class="sys-name">Fresh Outdoor</div>
+        <div class="sys-meta">Landscaping · Lawn · Pest · Pool</div>
+      </div>
+    </div>
+
+    <div class="sys-item" data-id="ia" data-url="apexautotire.com" data-label="Industrial">
+      <div class="sys-palette">
+        <div class="sys-dot" style="background:#1A1A1A"></div>
+        <div class="sys-dot" style="background:#E05A00"></div>
+        <div class="sys-dot" style="background:#A8A8A8"></div>
+      </div>
+      <div class="sys-info">
+        <div class="sys-name">Industrial</div>
+        <div class="sys-meta">Auto · Welding · Towing · Machine</div>
+      </div>
+    </div>
+
+  </div>
+</aside>
+
+<main class="stage">
+
+  <div class="browser">
+    <div class="browser-bar">
+      <div class="b-dots">
+        <div class="b-dot r"></div>
+        <div class="b-dot y"></div>
+        <div class="b-dot g"></div>
+      </div>
+      <div class="b-url" id="burl">johnsonplumbing.com</div>
+      <div class="b-badge" id="blabel">Blue Collar</div>
+    </div>
+
+    <div class="mockup-viewport">
+
+      <!-- ── BLUE COLLAR ── -->
+      <div class="mockup bc active" id="m-bc">
+        <div class="mn">
+          <div class="mn-logo">Johnson Plumbing &amp; Heating</div>
+          <div class="mn-right">
+            <span class="mn-phone">(216) 555-0182</span>
+            <button class="mn-cta">Get a Quote</button>
+          </div>
+        </div>
+        <div class="hero">
+          <div class="hero-ey">Licensed · Insured · Family Owned</div>
+          <div class="hero-h">Northeast Ohio's Go-To Plumber Since 1988</div>
+          <div class="hero-sub">Available 7 days a week. Straight talk, fair prices, and a job done right the first time.</div>
+          <div class="hero-btns">
+            <button class="btn-p">Call Now</button>
+            <button class="btn-s">Get a Free Quote</button>
+          </div>
+          <div class="stats">
+            <div><div class="stat-n">35+</div><div class="stat-l">Years Serving NE Ohio</div></div>
+            <div><div class="stat-n">5★</div><div class="stat-l">Google Rated</div></div>
+            <div><div class="stat-n">24/7</div><div class="stat-l">Emergency Service</div></div>
+          </div>
+        </div>
+        <div class="svcs">
+          <div class="sec-ey">What We Do</div>
+          <div class="sec-h">Our Services</div>
+          <div class="cards">
+            <div class="card">
+              <div class="card-h">Drain Cleaning</div>
+              <div class="card-p">Clogged drains cleared fast — kitchen, bath, main line, and floor drains.</div>
+            </div>
+            <div class="card">
+              <div class="card-h">Water Heaters</div>
+              <div class="card-p">Tank and tankless installation, repair, and same-day replacement.</div>
+            </div>
+            <div class="card">
+              <div class="card-h">Sewer Lines</div>
+              <div class="card-p">Camera inspection, hydro-jetting, and full sewer lateral replacement.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="quote">"Called at 7am with a burst pipe. Tom was here within the hour, fixed it clean, and charged exactly what he quoted. Won't call anyone else."</div>
+          <div class="attr">— Mike R., Parma OH · Google Review</div>
+        </div>
+        <div class="foot">
+          <div class="foot-l">© 2025 Johnson Plumbing & Heating · Parma, OH</div>
+          <div class="foot-r">LIC PL.22741 · HV.22741</div>
+        </div>
+      </div>
+
+      <!-- ── WARM FAMILY ── -->
+      <div class="mockup wf" id="m-wf">
+        <div class="mn">
+          <div class="mn-logo">Rosa's Hair Studio</div>
+          <div class="mn-right">
+            <span class="mn-phone">(440) 555-0147</span>
+            <button class="mn-cta">Book Now</button>
+          </div>
+        </div>
+        <div class="hero">
+          <div class="hero-ey">Lakewood, Ohio · Est. 2008</div>
+          <div class="hero-h">Where Every Visit Feels Like Coming Home</div>
+          <div class="hero-sub">Expert cuts, color, and care in a warm space built for you. Walk out feeling exactly like yourself.</div>
+          <div class="hero-btns">
+            <button class="btn-p">Book an Appointment</button>
+            <button class="btn-s">See Our Work</button>
+          </div>
+          <div class="stats">
+            <div><div class="stat-n">16</div><div class="stat-l">Years in Lakewood</div></div>
+            <div><div class="stat-n">5★</div><div class="stat-l">500+ Reviews</div></div>
+            <div><div class="stat-n">3</div><div class="stat-l">Stylists on Staff</div></div>
+          </div>
+        </div>
+        <div class="svcs">
+          <div class="sec-ey">Services</div>
+          <div class="sec-h">What We Offer</div>
+          <div class="cards">
+            <div class="card">
+              <div class="card-ico"></div>
+              <div class="card-h">Cuts &amp; Styling</div>
+              <div class="card-p">Precision cuts for every texture, length, and style goal.</div>
+            </div>
+            <div class="card">
+              <div class="card-ico"></div>
+              <div class="card-h">Color &amp; Highlights</div>
+              <div class="card-p">Balayage, full color, and corrective services done with care.</div>
+            </div>
+            <div class="card">
+              <div class="card-ico"></div>
+              <div class="card-h">Treatments</div>
+              <div class="card-p">Deep conditioning, keratin, and scalp treatments for healthy hair.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="quote">"Rosa has been doing my hair for eight years. She remembers every detail, never rushes, and somehow always knows exactly what I need."</div>
+          <div class="attr">— Jennifer M. · Google Review</div>
+        </div>
+        <div class="foot">
+          <div class="foot-l">© 2025 Rosa's Hair Studio · Lakewood, OH</div>
+          <div class="foot-r">By appointment & walk-ins welcome</div>
+        </div>
+      </div>
+
+      <!-- ── TRUST PROFESSIONAL ── -->
+      <div class="mockup tp" id="m-tp">
+        <div class="mn">
+          <div class="mn-logo">Meridian Legal Group</div>
+          <div class="mn-right">
+            <span class="mn-phone">(216) 555-0291</span>
+            <button class="mn-cta">Schedule a Consultation</button>
+          </div>
+        </div>
+        <div class="hero">
+          <div class="hero-left">
+            <div class="hero-ey">Estate Planning · Family Law · Real Estate</div>
+            <div class="hero-h">Trusted Counsel for Cleveland Families Since 1995</div>
+            <div class="hero-sub">We handle the legal complexity so you can focus on what matters most. Serving Greater Cleveland for 30 years.</div>
+            <div class="hero-btns">
+              <button class="btn-p">Schedule a Consultation</button>
+              <button class="btn-s">Our Practice Areas</button>
+            </div>
+          </div>
+          <div class="aside">
+            <div class="aside-t">Practice Areas</div>
+            <div class="aside-row"><span class="aside-dot"></span> Estate Planning</div>
+            <div class="aside-row"><span class="aside-dot"></span> Wills &amp; Trusts</div>
+            <div class="aside-row"><span class="aside-dot"></span> Family Law</div>
+            <div class="aside-row"><span class="aside-dot"></span> Real Estate</div>
+            <div class="aside-row"><span class="aside-dot"></span> Probate</div>
+          </div>
+        </div>
+        <div class="svcs">
+          <div class="sec-ey">How We Can Help</div>
+          <div class="sec-h">Our Practice Areas</div>
+          <div class="cards">
+            <div class="card">
+              <div class="card-h">Estate Planning</div>
+              <div class="card-p">Wills, trusts, powers of attorney, and healthcare directives tailored to your family's needs.</div>
+            </div>
+            <div class="card">
+              <div class="card-h">Family Law</div>
+              <div class="card-p">Divorce, custody, support, and adoption handled with discretion and care.</div>
+            </div>
+            <div class="card">
+              <div class="card-h">Real Estate Law</div>
+              <div class="card-p">Residential and commercial closings, title review, and landlord-tenant matters.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="quote-mark">&ldquo;</div>
+          <div>
+            <div class="quote">Meridian handled my father's estate with patience and real expertise. They explained every step, answered every question, and made an overwhelming process manageable.</div>
+            <div class="attr">— Sandra K., Beachwood OH</div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="foot-l">© 2025 Meridian Legal Group · Beachwood, OH 44122</div>
+          <div class="foot-r">Attorney Advertising · Prior results do not guarantee similar outcomes</div>
+        </div>
+      </div>
+
+      <!-- ── FRESH OUTDOOR ── -->
+      <div class="mockup fo" id="m-fo">
+        <div class="mn">
+          <div class="mn-logo">Greenwave Landscaping</div>
+          <div class="mn-right">
+            <span class="mn-phone">(440) 555-0318</span>
+            <button class="mn-cta">Get a Quote</button>
+          </div>
+        </div>
+        <div class="hero">
+          <div>
+            <div class="hero-ey">Strongsville, OH · Fully Insured</div>
+            <div class="hero-h">Your Dream Yard, Delivered — All Season Long</div>
+            <div class="hero-sub">Design, installation, and maintenance for Greater Cleveland homeowners who want their outdoor space to actually work.</div>
+            <div class="hero-btns">
+              <button class="btn-p">Get a Free Quote</button>
+              <button class="btn-s">See Our Work</button>
+            </div>
+            <div class="stats">
+              <div><div class="stat-n">12</div><div class="stat-l">Years in Business</div></div>
+              <div><div class="stat-n">400+</div><div class="stat-l">Properties Served</div></div>
+              <div><div class="stat-n">5★</div><div class="stat-l">Google Rated</div></div>
+            </div>
+          </div>
+          <div class="hero-badge">
+            <div class="badge-n">Free</div>
+            <div class="badge-t">On-site estimate — no commitment</div>
+          </div>
+        </div>
+        <div class="svcs">
+          <div class="sec-ey">Services</div>
+          <div class="sec-h">What We Do</div>
+          <div class="cards">
+            <div class="card">
+              <div class="card-dot"></div>
+              <div class="card-h">Lawn Care</div>
+              <div class="card-p">Weekly mowing, edging, and seasonal fertilization programs.</div>
+            </div>
+            <div class="card">
+              <div class="card-dot"></div>
+              <div class="card-h">Landscape Design</div>
+              <div class="card-p">Planting, mulching, retaining walls, and full yard transformations.</div>
+            </div>
+            <div class="card">
+              <div class="card-dot"></div>
+              <div class="card-h">Seasonal Cleanup</div>
+              <div class="card-p">Spring and fall cleanups, leaf removal, and winter prep services.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="quote">"They transformed our backyard completely — drainage fixed, new plantings, clean edging throughout. We actually use the yard now. Couldn't believe the difference."</div>
+          <div class="attr">— David &amp; Carol T., Strongsville OH</div>
+        </div>
+        <div class="foot">
+          <div class="foot-l">© 2025 Greenwave Landscaping · Strongsville, OH</div>
+          <div class="foot-r">Licensed &amp; Insured · Free Estimates</div>
+        </div>
+      </div>
+
+      <!-- ── INDUSTRIAL ── -->
+      <div class="mockup ia" id="m-ia">
+        <div class="mn">
+          <div class="mn-logo">Apex Auto &amp; Tire</div>
+          <div class="mn-right">
+            <span class="mn-phone">(216) 555-0429</span>
+            <button class="mn-cta">Schedule Service</button>
+          </div>
+        </div>
+        <div class="hero">
+          <div class="hero-ey">Parma, Ohio · Family Owned Since 2001</div>
+          <div class="hero-h">No BS.<br>Just Fixed.</div>
+          <div class="hero-sub">Parma's most honest auto shop. ASE certified technicians, upfront pricing, and no upsell nonsense.</div>
+          <div class="hero-btns">
+            <button class="btn-p">Schedule Service</button>
+            <button class="btn-s">Get a Quote</button>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="stat-n">23</div><div class="stat-l">Years Open</div></div>
+            <div class="stat"><div class="stat-n">15K+</div><div class="stat-l">Repairs Done</div></div>
+            <div class="stat"><div class="stat-n">ASE</div><div class="stat-l">Certified</div></div>
+          </div>
+        </div>
+        <div class="svcs">
+          <div class="sec-ey">Services</div>
+          <div class="sec-h">What We Fix</div>
+          <div class="cards">
+            <div class="card">
+              <div class="card-h">Engine Repair</div>
+              <div class="card-p">Diagnostics, timing belts, head gaskets — nothing we haven't seen before.</div>
+            </div>
+            <div class="card">
+              <div class="card-h">Tires &amp; Alignment</div>
+              <div class="card-p">All major brands, mount and balance, and four-wheel alignments.</div>
+            </div>
+            <div class="card">
+              <div class="card-h">Brakes &amp; Rotors</div>
+              <div class="card-p">Pads, rotors, calipers, and brake fluid — same-day service available.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="quote">"Brought my truck in with a mystery noise three other shops couldn't figure out. Apex diagnosed it in 20 minutes, fixed it same day, charged me half what I expected."</div>
+          <div class="attr">— Rob G. · Google Review · 5 Stars</div>
+        </div>
+        <div class="foot">
+          <div class="foot-l">© 2025 Apex Auto & Tire · Parma, OH 44129</div>
+          <div class="foot-r">ASE CERTIFIED · BBB A+</div>
+        </div>
+      </div>
+
+    </div><!-- /mockup-viewport -->
+  </div><!-- /browser -->
+
+  <!-- Token strip -->
+  <div class="tokens" id="tokens">
+    <div class="tok-group">
+      <span class="tok-label">Palette</span>
+      <div class="tok-swatches" id="tok-colors"></div>
+    </div>
+    <div class="tok-div"></div>
+    <div class="tok-group">
+      <span class="tok-label">Heading</span>
+      <span class="tok-text" id="tok-heading"></span>
+    </div>
+    <div class="tok-div"></div>
+    <div class="tok-group">
+      <span class="tok-label">Body</span>
+      <span class="tok-text" id="tok-body"></span>
+    </div>
+    <div class="tok-div"></div>
+    <div class="tok-group">
+      <span class="tok-label">Radius</span>
+      <span class="tok-text" id="tok-radius"></span>
+    </div>
+    <div class="tok-div"></div>
+    <div class="tok-group">
+      <span class="tok-label">Trades</span>
+      <div class="tok-tags" id="tok-trades"></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const data = {
+  bc: {
+    url: 'johnsonplumbing.com',
+    label: 'Blue Collar',
+    colors: [{h:'#1B3A6B',n:'Primary'},{h:'#122847',n:'Dark'},{h:'#C82A1C',n:'Secondary'},{h:'#E8A020',n:'Accent'},{h:'#F4F4EF',n:'Background'}],
+    heading: 'Roboto Slab / Georgia',
+    body: 'Inter / system-ui',
+    radius: '2–3px',
+    trades: ['Plumbing','Electrical','HVAC','Roofing'],
+  },
+  wf: {
+    url: 'rosahairstudio.com',
+    label: 'Warm Family',
+    colors: [{h:'#5C2E3A',n:'Primary'},{h:'#C4956A',n:'Secondary'},{h:'#8B9E80',n:'Accent'},{h:'#FDF8F2',n:'Background'},{h:'#EDE3D5',n:'Border'}],
+    heading: 'Playfair Display / Palatino',
+    body: 'Lato / Helvetica Neue',
+    radius: '20px',
+    trades: ['Hair Salons','Restaurants','Florists','Bakeries'],
+  },
+  tp: {
+    url: 'meridianlegalgroup.com',
+    label: 'Trust Professional',
+    colors: [{h:'#1A2640',n:'Primary'},{h:'#9A7828',n:'Gold'},{h:'#3B6E8F',n:'Accent'},{h:'#F6F7F9',n:'Background'},{h:'#E2E4E8',n:'Border'}],
+    heading: 'Cormorant Garamond / Garamond',
+    body: 'Source Sans 3 / system-ui',
+    radius: '4px',
+    trades: ['Law Firms','Medical','Accounting','Chiropractors'],
+  },
+  fo: {
+    url: 'greenwavelandscaping.com',
+    label: 'Fresh Outdoor',
+    colors: [{h:'#2A5E45',n:'Primary'},{h:'#4CAF7D',n:'Secondary'},{h:'#F06B1C',n:'Accent'},{h:'#EEF7F2',n:'Background'},{h:'#C8E6D4',n:'Border'}],
+    heading: 'Nunito / Trebuchet MS',
+    body: 'Open Sans / system-ui',
+    radius: '12px',
+    trades: ['Landscaping','Lawn Care','Pest Control','Pool Service'],
+  },
+  ia: {
+    url: 'apexautotire.com',
+    label: 'Industrial',
+    colors: [{h:'#1A1A1A',n:'Primary'},{h:'#E05A00',n:'Secondary'},{h:'#A8A8A8',n:'Accent'},{h:'#EBEBEB',n:'Background'},{h:'#FFFFFF',n:'Surface'}],
+    heading: 'Oswald / Impact',
+    body: 'Roboto / system-ui',
+    radius: '0px',
+    trades: ['Auto Repair','Welding','Towing','Machine Shops'],
+  },
+};
+
+function activate(id) {
+  const d = data[id];
+
+  // sidebar
+  document.querySelectorAll('.sys-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.id === id);
+  });
+
+  // browser
+  document.getElementById('burl').textContent = d.url;
+  document.getElementById('blabel').textContent = d.label;
+
+  // mockups
+  document.querySelectorAll('.mockup').forEach(el => {
+    el.classList.toggle('active', el.id === 'm-' + id);
+  });
+
+  // token strip
+  const colorsEl = document.getElementById('tok-colors');
+  colorsEl.innerHTML = d.colors.map(c =>
+    `<div class="tok-swatch" style="background:${c.h}" title="${c.n} ${c.h}"></div>`
+  ).join('');
+  document.getElementById('tok-heading').textContent = d.heading;
+  document.getElementById('tok-body').textContent = d.body;
+  document.getElementById('tok-radius').textContent = d.radius;
+  const tradesEl = document.getElementById('tok-trades');
+  tradesEl.innerHTML = d.trades.map(t => `<div class="tok-tag">${t}</div>`).join('');
+}
+
+document.querySelectorAll('.sys-item').forEach(el => {
+  el.addEventListener('click', () => activate(el.dataset.id));
+});
+
+activate('bc');
+</script>
+</body>

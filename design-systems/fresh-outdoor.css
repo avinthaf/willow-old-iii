@@ -1,0 +1,59 @@
+/* =============================================================================
+   Fresh Outdoor — Design System Preset
+   Trades: Landscaping · Lawn Care · Pest Control · Pool Service · Cleaning
+   Character: Clean, energetic, nature-forward. Friendly without being childish.
+
+   Google Fonts (add to layout.tsx):
+   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap');
+   ============================================================================= */
+
+:root {
+  /* Brand tokens */
+  --ds-primary:          #2A5E45;
+  --ds-primary-fg:       #FFFFFF;
+  --ds-secondary:        #4CAF7D;
+  --ds-secondary-fg:     #FFFFFF;
+  --ds-accent:           #F06B1C;
+  --ds-accent-fg:        #FFFFFF;
+  --ds-bg:               #EEF7F2;
+  --ds-surface:          #FFFFFF;
+  --ds-text:             #1A2C22;
+  --ds-text-muted:       #4A6355;
+  --ds-border:           #C8E6D4;
+
+  /* Typography */
+  --ds-font-heading:     'Nunito', 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+  --ds-font-body:        'Open Sans', system-ui, -apple-system, sans-serif;
+  --ds-fw-heading:       800;
+  --ds-ls-heading:       -0.01em;
+  --ds-ls-label:         0.08em;
+  --ds-tt-label:         uppercase;
+
+  /* Shape */
+  --ds-radius:           12px;
+  --ds-radius-lg:        20px;
+  --ds-shadow-sm:        0 2px 6px rgba(42,94,69,0.08);
+  --ds-shadow-md:        0 6px 18px rgba(42,94,69,0.12);
+
+  /* shadcn/ui (HSL) */
+  --background:          148 38% 95%;
+  --foreground:          150 25% 14%;
+  --card:                0 0% 100%;
+  --card-foreground:     150 25% 14%;
+  --popover:             0 0% 100%;
+  --popover-foreground:  150 25% 14%;
+  --primary:             152 37% 26%;
+  --primary-foreground:  0 0% 100%;
+  --secondary:           149 41% 49%;
+  --secondary-foreground: 0 0% 100%;
+  --muted:               148 20% 85%;
+  --muted-foreground:    150 16% 40%;
+  --accent:              22 87% 53%;
+  --accent-foreground:   0 0% 100%;
+  --destructive:         0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border:              148 30% 82%;
+  --input:               148 30% 82%;
+  --ring:                152 37% 26%;
+  --radius:              0.75rem;
+}

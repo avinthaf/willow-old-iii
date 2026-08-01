@@ -1,0 +1,59 @@
+/* =============================================================================
+   Blue Collar — Design System Preset
+   Trades: Plumbing · Electrical · HVAC · Roofing · General Contracting
+   Character: Dense, direct, authoritative. Built to earn trust, not impress.
+
+   Google Fonts (add to layout.tsx):
+   @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+   ============================================================================= */
+
+:root {
+  /* Brand tokens */
+  --ds-primary:          #1B3A6B;
+  --ds-primary-fg:       #FFFFFF;
+  --ds-secondary:        #C82A1C;
+  --ds-secondary-fg:     #FFFFFF;
+  --ds-accent:           #E8A020;
+  --ds-accent-fg:        #111111;
+  --ds-bg:               #F4F4EF;
+  --ds-surface:          #FFFFFF;
+  --ds-text:             #111111;
+  --ds-text-muted:       #5A5A5A;
+  --ds-border:           #D0CFC8;
+
+  /* Typography */
+  --ds-font-heading:     'Roboto Slab', Georgia, 'Times New Roman', serif;
+  --ds-font-body:        'Inter', system-ui, -apple-system, sans-serif;
+  --ds-fw-heading:       700;
+  --ds-ls-heading:       -0.01em;
+  --ds-ls-label:         0.08em;
+  --ds-tt-label:         uppercase;
+
+  /* Shape */
+  --ds-radius:           3px;
+  --ds-radius-lg:        5px;
+  --ds-shadow-sm:        0 1px 3px rgba(0,0,0,0.10);
+  --ds-shadow-md:        0 3px 8px rgba(0,0,0,0.14);
+
+  /* shadcn/ui (HSL) */
+  --background:          60 5% 94%;
+  --foreground:          0 0% 7%;
+  --card:                0 0% 100%;
+  --card-foreground:     0 0% 7%;
+  --popover:             0 0% 100%;
+  --popover-foreground:  0 0% 7%;
+  --primary:             214 58% 26%;
+  --primary-foreground:  0 0% 100%;
+  --secondary:           4 73% 45%;
+  --secondary-foreground: 0 0% 100%;
+  --muted:               60 4% 88%;
+  --muted-foreground:    0 0% 35%;
+  --accent:              37 82% 51%;
+  --accent-foreground:   0 0% 7%;
+  --destructive:         0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border:              45 8% 81%;
+  --input:               45 8% 81%;
+  --ring:                214 58% 26%;
+  --radius:              0.2rem;
+}

@@ -1,0 +1,60 @@
+/* =============================================================================
+   Industrial — Design System Preset
+   Trades: Auto Repair · Welding · Machine Shops · Towing · Heavy Equipment
+   Character: Bold, high-contrast, zero decoration. The site means business.
+
+   Google Fonts (add to layout.tsx):
+   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+   ============================================================================= */
+
+:root {
+  /* Brand tokens */
+  --ds-primary:          #1A1A1A;
+  --ds-primary-fg:       #FFFFFF;
+  --ds-secondary:        #E05A00;
+  --ds-secondary-fg:     #FFFFFF;
+  --ds-accent:           #A8A8A8;
+  --ds-accent-fg:        #1A1A1A;
+  --ds-bg:               #EBEBEB;
+  --ds-surface:          #FFFFFF;
+  --ds-text:             #111111;
+  --ds-text-muted:       #5A5A5A;
+  --ds-border:           #D0D0D0;
+
+  /* Typography */
+  --ds-font-heading:     'Oswald', Impact, 'Arial Narrow', 'Haettenschweiler', Arial, sans-serif;
+  --ds-font-body:        'Roboto', system-ui, -apple-system, sans-serif;
+  --ds-fw-heading:       700;
+  --ds-ls-heading:       0.03em;
+  --ds-tt-heading:       uppercase;
+  --ds-ls-label:         0.15em;
+  --ds-tt-label:         uppercase;
+
+  /* Shape */
+  --ds-radius:           0px;
+  --ds-radius-lg:        2px;
+  --ds-shadow-sm:        0 2px 4px rgba(0,0,0,0.16);
+  --ds-shadow-md:        0 4px 12px rgba(0,0,0,0.22);
+
+  /* shadcn/ui (HSL) */
+  --background:          0 0% 92%;
+  --foreground:          0 0% 7%;
+  --card:                0 0% 100%;
+  --card-foreground:     0 0% 7%;
+  --popover:             0 0% 100%;
+  --popover-foreground:  0 0% 7%;
+  --primary:             0 0% 10%;
+  --primary-foreground:  0 0% 100%;
+  --secondary:           22 100% 44%;
+  --secondary-foreground: 0 0% 100%;
+  --muted:               0 0% 82%;
+  --muted-foreground:    0 0% 36%;
+  --accent:              0 0% 66%;
+  --accent-foreground:   0 0% 10%;
+  --destructive:         0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border:              0 0% 82%;
+  --input:               0 0% 82%;
+  --ring:                22 100% 44%;
+  --radius:              0rem;
+}

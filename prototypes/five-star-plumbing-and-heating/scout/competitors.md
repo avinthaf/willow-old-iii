@@ -1,0 +1,22 @@
+# Competitor Analysis — Five Star Plumbing and Heating LLC
+
+| Competitor | Website | Hero Headline | Trust Signals | Strengths | Gaps |
+|------------|---------|---------------|---------------|-----------|------|
+| WyattWorks | wyattworks.com | "Expert Service" / "Trusted Local Provider" | Angie's List Super Service Award (7 consecutive years), BBB, Yelp, Google, Elite Service seal, family-owned badge | Multi-trade (plumbing + HVAC + electrical + drain + water treatment); 24/7 availability and same-day framing; polished visual design with professional photography; coupons page drives conversions; extensive testimonials section | No years in business listed prominently; no technician count; no warranty details; pricing opaque beyond coupon amounts; no service area map; hero headline is generic — "Expert Service" says nothing specific |
+| 1st Choice Plumbing and Drain | 1stchoiceplumbingcleveland.com | "Top-Rated Local Plumber — Serving Clients in North Royalton and Surrounding Area" | Ohio License #46970 displayed, 5.0 / 95+ reviews called out, "20+ years of experience," free estimates, no trip charge | License number visible (builds trust immediately); 18+ service communities listed by name (good for local SEO); blog present; emergency services page; green plumbing page differentiates; multiple CTAs | No individual plumber photo or owner biography; no before/after gallery; no FAQ; no pricing transparency beyond "free estimates"; testimonials not pulled into the hero — buried deeper in the site |
+| Mayer Plumbing | mayerplumbingco.com | "Mayer Plumbing — The #1 Referred Plumber in Ohio" | Founded 1922 (100+ year heritage); Ohio Plumber's License #13239; licensed, bonded, insured; 24-hour emergency service; Synchrony Bank financing; gallery page; testimonials page | Longevity is a powerful differentiator — 100+ years is a conversation-stopper; financing option widens the customer base; gallery and testimonials pages exist; coupons page; trenchless sewer repair is a specialty not all competitors offer | Only one testimonial visible on the homepage despite "#1 referred" claim; no review counts or star ratings shown; service descriptions are vague and generic; an "Outdoor Inflatables" section on the site is confusing and unprofessional; no contact form visible |
+
+## Notes
+
+### What the prototype must match or beat
+
+- **License/credential display:** Both 1st Choice and Mayer show their Ohio plumber's license numbers above the fold or near the top. Five Star's prototype should display the BBB A+ badge, the full accreditation date, and "fully insured and bonded" in a trust bar directly under the hero — this is table stakes in the Cleveland plumbing market.
+- **Review count in the hero:** 1st Choice calls out "5.0 rating, 95+ reviews" prominently. Five Star has 80+ Google reviews at 5.0 stars — this is an equal or better signal and must appear in the hero section or immediately below it.
+- **Named CTAs:** WyattWorks uses multiple contextual CTAs ("Schedule Service," "Get a Quote"). The current Five Star site has no CTAs at all. The prototype needs a primary call button ("Call Now" or "Book a Visit") visible without scrolling on both desktop and mobile.
+
+### Where Five Star can differentiate
+
+- **Owner identity:** No competitor makes the owner's name a trust signal. Five Star's customers refer to Kamran by name in almost every review ("Kamran was on time," "Kamran explained everything," "Ask for Kamran"). Putting Kamran's name and photo in the hero is a genuine differentiator — it personalizes the service in a way WyattWorks and Mayer cannot replicate.
+- **One-year warranty:** The free one-year warranty on labor and materials is stronger than anything competitors publicly advertise. WyattWorks mentions "100% satisfaction" for HVAC only; Mayer mentions it generally. Making the warranty a visual badge and a dedicated section sets Five Star apart.
+- **Military discount:** None of the three competitors advertise a military discount. Parma has a significant veteran population; surfacing this prominently is both ethical and commercially smart.
+- **Pricing transparency signal:** Multiple reviews cite Kamran's prices as "half of other estimates." The prototype does not need to publish prices, but a "no hidden fees" or "upfront quotes before we start" statement — backed by review quotes — is a conversion tool none of the three competitors currently deploy effectively.

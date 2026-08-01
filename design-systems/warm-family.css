@@ -1,0 +1,60 @@
+/* =============================================================================
+   Warm Family — Design System Preset
+   Trades: Restaurants · Hair Salons · Florists · Bakeries · Childcare
+   Character: Airy, personal, inviting. Typography-led with generous whitespace.
+
+   Google Fonts (add to layout.tsx):
+   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+   ============================================================================= */
+
+:root {
+  /* Brand tokens */
+  --ds-primary:          #5C2E3A;
+  --ds-primary-fg:       #FDF8F2;
+  --ds-secondary:        #C4956A;
+  --ds-secondary-fg:     #2A1A14;
+  --ds-accent:           #8B9E80;
+  --ds-accent-fg:        #FFFFFF;
+  --ds-bg:               #FDF8F2;
+  --ds-surface:          #FFFFFF;
+  --ds-text:             #2A1A14;
+  --ds-text-muted:       #9A7A6A;
+  --ds-border:           #EDE3D5;
+
+  /* Typography */
+  --ds-font-heading:     'Playfair Display', Palatino, 'Palatino Linotype', Georgia, serif;
+  --ds-font-body:        'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --ds-fw-heading:       400;
+  --ds-style-heading:    italic;
+  --ds-ls-heading:       0.01em;
+  --ds-ls-label:         0.12em;
+  --ds-tt-label:         uppercase;
+
+  /* Shape */
+  --ds-radius:           20px;
+  --ds-radius-lg:        28px;
+  --ds-shadow-sm:        0 2px 8px rgba(92,46,58,0.06);
+  --ds-shadow-md:        0 6px 20px rgba(92,46,58,0.10);
+
+  /* shadcn/ui (HSL) */
+  --background:          30 60% 97%;
+  --foreground:          15 42% 13%;
+  --card:                0 0% 100%;
+  --card-foreground:     15 42% 13%;
+  --popover:             0 0% 100%;
+  --popover-foreground:  15 42% 13%;
+  --primary:             346 34% 27%;
+  --primary-foreground:  30 60% 97%;
+  --secondary:           28 44% 59%;
+  --secondary-foreground: 15 42% 13%;
+  --muted:               30 30% 90%;
+  --muted-foreground:    20 18% 50%;
+  --accent:              109 15% 57%;
+  --accent-foreground:   0 0% 100%;
+  --destructive:         0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border:              30 33% 88%;
+  --input:               30 33% 88%;
+  --ring:                346 34% 27%;
+  --radius:              1.25rem;
+}
